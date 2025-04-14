@@ -1,0 +1,305 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+div svg {
+    margin-top: 8px;
+    margin-left: 6px;
+}
+
+svg {
+    width: 24px;
+    height: 24px;
+    fill: #d21717;
+}
+
+button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 5px;
+    transition: background-color 0.3s;
+    border-radius: 500px;
+}
+
+button:hover {
+    background-color: #f0f0f0;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    line-height: 1.6;
+    color: #333;
+    background-color: #f7f7f7;
+    padding: 10px 30px;
+}
+
+header {
+    display: flex;
+    align-items: center;
+    padding: 10px 0;
+    justify-content: space-between;
+    white-space: nowrap;
+}
+
+header h1 {
+    margin: 0 10px;
+    display: block;
+    white-space: nowrap;
+}
+
+header h1 a {
+    text-decoration: none;
+    transition: none;
+    color: #333;
+}
+
+header h1 a:hover {
+    color: #555;
+}
+
+nav {
+    flex-grow: 1;
+}
+
+nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    justify-content: flex-end;
+    flex-wrap: wrap;
+}
+
+nav ul li {
+    margin-left: 10px;
+}
+
+nav ul li a {
+    text-decoration: none;
+    color: #333;
+    padding: 5px 10px;
+    border-radius: 50px;
+    transition: background-color 0.3s ease;
+}
+
+nav ul li a:hover {
+    background-color: #ddd;
+}
+
+main {
+    flex: 1;
+    padding: 30px 20px;
+    max-width: 1000px;
+    margin: auto;
+    min-width: 300px;
+}
+
+main a svg {
+    color: blue;
+}
+
+footer {
+    text-align: center;
+    padding: 1em 0;
+    position: relative;
+    width: 100%;
+    bottom: 0;
+    font-size: small;
+}
+
+article {
+    background-color: #ffffff;
+    border-radius: 10px;
+    padding: 10px 20px;
+    margin-bottom: 20px;
+    width: 100%;
+    max-width: 700px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+article a {
+    text-decoration: none;
+    color: #333 !important;
+    font-weight: bold;
+    font-size: larger;
+}
+
+article p {
+    display: block;
+    overflow: visible;
+    color: #666;
+}
+
+article a:hover {
+    text-decoration: underline;
+    color: #0066cc !important;
+}
+
+a:link,
+a:visited {
+    color: #333;
+}
+
+a:hover,
+a:active {
+    color: #0066cc;
+}
+
+#pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+}
+
+#pagination button {
+    padding: 10px 20px;
+    margin: 0 10px;
+    background-color: #ddd;
+    border: none;
+    color: #333;
+    cursor: pointer;
+    border-radius: 50px;
+}
+
+#pagination button:disabled {
+    background-color: #eee;
+    color: #999;
+    cursor: not-allowed;
+    visibility: visible;
+}
+
+#pagination span {
+    color: #333;
+}
+
+section {
+    margin-top: 40px;
+}
+
+u {
+    text-decoration: underline;
+}
+
+.article {
+    margin-bottom: 20px;
+    background-color: #ffffff;
+    border-radius: 10px;
+    padding: 15px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.article-title {
+    font-size: 1.2em;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.article-content {
+    margin-bottom: 10px;
+    color: #666;
+}
+
+.article-date {
+    display: block;
+    font-size: 0.9em;
+    font-style: italic;
+    color: #999;
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px 20px;
+    }
+
+    header h1 {
+        font-size: 1.5em;
+    }
+
+    nav ul {
+        justify-content: center;
+    }
+
+    nav ul li {
+        margin-left: 5px;
+    }
+
+    main {
+        padding: 20px 10px;
+    }
+
+    article {
+        padding: 10px 15px;
+    }
+
+    #pagination button {
+        padding: 5px 10px;
+        margin: 0 5px;
+    }
+}
+
+@media (max-width: 480px) {
+    header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    nav ul {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    nav ul li {
+        margin-left: 0;
+        margin-bottom: 5px;
+    }
+
+    article a {
+        font-size: 1em;
+    }
+
+    #pagination {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    #pagination button {
+        margin: 5px 0;
+    }
+}
+
+footer span {
+    color: #666;
+    margin: 20px;
+}
+
+.warning {
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    background-color: rgba(230, 198, 71, 0.459);
+    color: #161616ce;
+    border: 1px solid rgba(255, 153, 0, 0.459);
+    padding: 10px;
+    border-radius: 15px;
+    font-weight: bold;
+    font-size: smaller;
+    margin-top: 20px;
+}
+
+code {
+    background-color: #e4e4e4e5;
+    padding: 2px;
+    border-radius: 4px;
+}
+
+h1,
+h2,
+h3 {
+    color: #d21717;
+}
