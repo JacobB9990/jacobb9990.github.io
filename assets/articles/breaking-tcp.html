@@ -6,12 +6,85 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link id="theme-stylesheet" rel="stylesheet" href="./assets/css/style-dark.css">
     <title>Jacob's Blog</title>
-    <link rel="icon" type="image/x-icon" href="/assets/favicon.ico">
+    <link rel="icon" type="image/x-icon" href="/assets/favicon/favicon.ico">
 </head>
 
 <body>
-    <header></header>
-    <p>Temp</p>
+    <header>
+    </header>
+    <div class="article-container_main">
+        <main class="article_main">
+            <h1 id="breaking-transmission-control-protocol">Breaking Transmission Control Protocol</h1>
+            <h2 id="introduction">Introduction</h2>
+            <h3 id="what-is-transmission-control-protocol">What is Transmission Control Protocol</h3>
+            <p>Transmission Control Protocol (TCP) is a transport-layer protocol from the 1970s, a part of the TCP/IP
+                model. It ensures reliable data transfer through a three-way handshake between client and host. TCP
+                includes rigorous safety checks, such as error detection, sequencing, flow control, and congestion
+                control, making it challenging to break.</p>
+            <h3 id="how-could-we-break-tcp">How could we &quot;Break&quot; TCP</h3>
+            <p>While TCP is extremely rigorous, it is not perfect because that is impossible. There are several ways to
+                potentially disrupt TCP. One way is we can use programs to simulate poor network conditions, such as the
+                <code>tc</code> (Traffic Control) tool in Linux. We can also block Wi-Fi signals by finding a location
+                with weak connectivity or by placing obstacles between the router and devices. Additionally, I can
+                overload the network with heavy data traffic, such as streaming videos and connecting multiple devices,
+                to create bottlenecks. In the real world, these conditions are all possible, and common, but often occur
+                at random. In this experiment I am just going to press "Ctrl + C" for convenience's sake.
+            </p>
+            <h2 id="method">Method</h2>
+            <p>I have created a straightforward program that transfers a file from my computer, which is connected to a
+                switch via Ethernet, to my laptop over Wi-Fi. The image is just a picture of a mountain. I then will
+                press &quot;Ctrl + C&quot; on the client side, which will terminate the program. From there, I will
+                observe and record the results by using Wireshark, an amazing tool to capture network packets.</p>
+            <h3 id="analyzing-tcp-handshake-and-congestion-flags-with-wireshark">Analyzing TCP Handshake and Congestion
+                Flags with Wireshark</h3>
+            <p>I used Wireshark to track and analyze the network traffic during a file transfer. I started by setting up
+                a server and then launched the client to begin the transfer. I stopped the program shortly after the
+                transfer began to examine what Wireshark had recorded.
+                The results showed a smooth TCP three-way handshake with SYN, SYN&amp;ACK, and ACK packets exchanged in
+                order. This handshake is crucial for setting up a reliable connection between the client and server.
+                During the session, I also noted the presence of additional TCP flags: ECE, CWR, and ECN.</p>
+            <ul>
+                <li>
+                    <p><strong>ECE (Explicit Congestion Notification Echo)</strong>: which is used to signal the
+                        presence of congestion to the sender.</p>
+                </li>
+                <li>
+                    <p><strong>CWR (Congestion Window Reduced)</strong>: sent by the sender to acknowledge receipt of
+                        the ECE signal and confirm that it has adjusted its congestion window accordingly.</p>
+                </li>
+                <li>
+                    <p><strong>ECN (Explicit Congestion Notification)</strong>: aimed at minimizing packet loss due to
+                        network congestion. It provides an early warning to endpoints about impending congestion,
+                        allowing them to reduce their sending rate and avoid packet drops.</p>
+                </li>
+            </ul>
+            <img src="/assets/images/WiresharkSYNACK.png" height="150">
+            <p>Seeing these flags in action gives a clear look at how TCP handles congestion. It shows how the protocol
+                adapts to network issues to try and prevent packet loss.
+                When the transfer ended, we saw the FIN flag, which normally means the connection is closing. However,
+                the file did not finish transferring before we stopped the session. The last flag we saw was RST
+                (Reset),
+                which essentially tells the connection to &quot;stop immediately.&quot;
+                Comparing images before and after the transfer, it was clear there was a drop in quality. This
+                highlights
+                how network issues can affect data transfer and the final result.</p>
+            <img src="/assets/images/WiresharkRST.png" height="150" width="900">
+            <h4 id="before">Before</h4>
+            <img src="/assets/images/MountainImageBefore.jpg" height="300">
+            <h4 id="after">After</h4>
+            <img src="/assets/images/MountainImage.jpg" height="300">
+            <h2 id="conclusion">Conclusion</h2>
+            <p>In the end, this experiment provided valuable information on how TCP transmits data from one end to the
+                other. And we also gained a great insight on what happens when something goes wrong. The network I was
+                connected to did have some potential congestion and TCP recognized that and provided the proper flags to
+                try to mitigate those issues. However, the transfer was doomed from the start. One thing I did not
+                realize was that once I terminated the process, the JPEG image was all there, but just pixelated towards
+                the
+                bottom.</p>
+        </main>
+    </div>
+    <script src="/js/include.js" defer></script>
+    <script src="/js/toggle-theme.js" defer></script>
     <footer></footer>
 </body>
 
