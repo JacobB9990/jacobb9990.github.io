@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link id="theme-stylesheet" rel="stylesheet" href="./assets/css/style-dark.css">
+    <title>Jacob Becker</title>
+    <link rel="icon" type="image/x-icon" href="/assets/favicon/favicon.ico">
+</head>
+
+<body>
+    <header>
+    </header>
+    <div class="article-container_main">
+        <main class="article_main">
+            <h1>
+                Brief Dive About: Classic Centrality Measures
+            </h1>
+            <h2>Why Centrality?</h2>
+            <p>
+                In a <b>network</b>, which nodes matter the most? Well that depends. Some  networks might have a different definition 
+                of what is important. For instance, on a platform like <b>X</b> (formerly <b>Twitter</b>)
+                A user with millions of followers has a high <b>degree centrality</b>. They have the ability to broadcast information instantly to many people.
+                In this case, "importance" is the ability to reach many others directly. But let us consider another user. 
+                They have fewer followers, but are positioned between two otherwise disconnected communities. That user may have high <b>betweenness centrality</b>.
+                Here, importance could mean controlling the flow of information between groups. So even within the <i>same</i> network. Degree captures broadcast power and betweenness captures brokerage power.
+                So, we can see there are different definitions of importance.
+            </p>
+            <p>
+                In 1978, <b>Linton C. Freeman</b> formalized three major notions of importance: <b>Degree, Closeness, and Betweenness</b>.
+                Later, spectral methods like eigenvector centrality and PageRank expanded the idea of "importance." Centrality is a mapping that assigns importance to each node.
+                $$C:V \rightarrow \mathbb{R}$$
+            </p>
+            <h2>Degree Centrality - Local Importance</h2>
+            <p>As I hinted before, Degree Centrality is the number of direct connections a given node has
+                It is purely local. We count the neighbors and is a proxy for direct influence. The formal definition is: $$C_{D}(i)= k_{i}$$
+                where \( k_{i} \) denotes the number of neighbors node \( i \).
+                The strengths of this measure is the simplicity and cheapness to compute.
+                The weakness is that it ignores global structure.
+            </p>
+            <h2>Closeness Centrality - Distance-Based Importance</h2>
+            <p>Closeness Centrality measures how close a node is to all other nodes in the network. 
+                It is global. We compute the shortest path distance from node \( i \) to every other node and take the reciprocal of the total distance. 
+                The formal definition is: $$C_{C}(i)= \frac{1}{\sum_{j} d(i,j)}$$ where \( d(i,j) \) is the shortest path distance between nodes \( i \) and \( j \). 
+                The strengths of this measure is that it captures how fast information can spread from a node under shortest path assumptions. 
+                The weakness is that it assumes information travels along geodesics and it does not behave well in disconnected graphs. </p>
+            <h2>Betweenness Centrality - Control of Flow</h2>
+            <p>Betweenness Centrality measures how often a node lies on shortest paths between other pairs of nodes. It is global. 
+                We count the fraction of shortest paths between all pairs that pass through node \( i \). The formal definition is: $$C_{B}(i)= \sum_{s \ne i \ne t} \frac{\sigma_{st}(i)}{\sigma_{st}}$$ 
+                where \( \sigma_{st} \) is the number of shortest paths from node \( s \) to node \( t \) and \( \sigma_{st}(i) \) is the number of those paths that pass through node \( i \). 
+                The strengths of this measure is that it detects bridges and brokerage positions in the network. 
+                The weakness is that it assumes shortest path routing and is computationally expensive on large graphs. </p>
+            <h2>Eigenvector Centrality - Prestige</h2>
+            <p>Eigenvector Centrality assigns importance to a node based on the importance of its neighbors. 
+                It is global and recursive. A node is important if it connects to other important nodes. 
+                The formal definition is given by the eigenvector equation: $$Ax = \lambda x$$ where \( A \) is the adjacency matrix of the network and \( x \) is the centrality vector. 
+                The strengths of this measure is that it captures prestige and influence beyond immediate neighbors. 
+                The weakness is that it can concentrate importance in dense regions and may fail in certain directed or disconnected graphs. </p>
+            <h2>RageRank - Random Walk Centrality</h2>
+            <p>PageRank Centrality is a modification of eigenvector centrality based on a random walk with teleportation. It is global. 
+                The centrality of a node is proportional to the centrality of nodes linking to it, scaled by their out degree and a damping factor. 
+                The formal definition is: $$PR(i)= \alpha \sum_{j \to i} \frac{PR(j)}{k^{out}_{j}} + \frac{1-\alpha}{N}$$ where \( \alpha \) is the damping factor, 
+                \( k^{out}_{j} \) is the out degree of node \( j \), and \( N \) is the total number of nodes. The strengths of this measure is that it is stable on 
+                directed networks and has a probabilistic interpretation as the stationary distribution of a random walk. The weakness is that it still does not explicitly
+                model diffusion dynamics and depends on the choice of damping parameter. </p>
+            <h2>Conclusion</h2>
+            <p>These centrality measures give different answers to the same fundamental question of what it means for a node to be important. 
+                Some are purely local while others incorporate global structure. Some rely on shortest paths while others rely on spectral or random walk interpretations. 
+                There is no single correct notion of importance. The appropriate definition depends on the structure of the network and the process taking place on it. 
+                In many modern applications such as influence maximization and contagion modeling, classical centralities serve as useful heuristics, but they do not explicitly model the underlying dynamics. 
+                Understanding their assumptions and limitations is therefore just as important as computing them. </p>
+        </main>
+    </div>
+</div>
+    <script src="/js/include.js" defer></script>
+    <script src="/js/toggle-theme.js" defer></script>
+    <footer></footer>
+</body>
+
+<script src="/assets/js/include.js"></script>
+<script src="/assets/js/toggle-theme.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+</html>
