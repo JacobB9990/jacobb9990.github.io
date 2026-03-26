@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Math Knowledge Graph</title>
+
+<script src="https://d3js.org/d3.v7.min.js"></script>
+<script src="https://unpkg.com/d3-force-atlas2"></script>
+<script src="https://unpkg.com/graphology@0.25.0/dist/graphology.umd.min.js"></script>
+<script src="https://unpkg.com/graphology-communities-louvain@0.2.0/dist/graphology-communities-louvain.min.js"></script>
+
+<style>
+body {
+  margin: 0;
+  overflow: hidden;
+  background: radial-gradient(circle at center, #1b2735, #090a0f);
+  font-family: sans-serif;
+}
+
+line {
+  stroke: #ffffff;
+  stroke-opacity: 0.05;
+}
+
+circle {
+  stroke: white;
+  stroke-width: 0.4px;
+}
+</style>
+</head>
+
+<body>
+<svg width="100%" height="100%"></svg>
+
+<script>
+
+const width = window.innerWidth;
+const height = window.innerHeight;
+
+const svg = d3.select("svg")
+  .attr("viewBox", [0, 0, width, height]);
+
+const g = svg.append("g");
+
+svg.call(
+  d3.zoom()
+    .scaleExtent([0.1, 5])
+    .on("zoom", (event) => {
+      g.attr("transform", event.transform);
+    })
+);
+
+const preview = d3.select("body")
+  .append("div")
+  .style("position", "absolute")
+  .style("background", "#111")
+  .style("color", "white")
+  .style("padding", "10px")
+  .style("border-radius", "6px")
+  .style("max-width", "300px")
+  .style("pointer-events", "none")
+  .style("opacity", 0);
+
+d3.json("data/graph_low_100.json").then(graph => {
+
+  const color = d3.scaleOrdinal(d3.schemeTableau10);
+
+  const simulation = d3.forceSimulation(graph.nodes)
+    .force("link",
+      d3.forceLink(graph.links)
+        .id(d => d.id)
+        .distance(60)
+    )
+    .force("charge", d3.forceManyBody().strength(-200))
+    .force("center", d3.forceCenter(width/2, height/2))
+    .force("collision", d3.forceCollide().radius(6));
+
+  const link = g.append("g")
+    .selectAll("path")
+    .data(graph.links)
+    .join("path")
+    .attr("fill", "none")
+    .attr("stroke", "#ffffff")
+    .attr("stroke-opacity", 0.05);
+
+  const node = g.append("g")
+    .selectAll("circle")
+    .data(graph.nodes)
+    .join("circle")
+    .attr("r", 4)
+    .attr("fill", d => color(d.community))
+    .call(drag(simulation));
+
+  node.append("title")
+    .text(d => d.id);
+
+    node.on("mouseover", async (event, d) => {
+    const res = await fetch(
+        "https://en.wikipedia.org/api/rest_v1/page/summary/" +
+        encodeURIComponent(d.id)
+    );
+
+    if (!res.ok) return;
+
+    const data = await res.json();
+
+    preview
+        .style("opacity", 1)
+        .html(
+        "<strong>" + d.id + "</strong><br><br>" +
+        (data.extract || "No summary available.")
+        );
+    })
+    .on("mousemove", (event) => {
+    preview
+        .style("left", (event.pageX + 15) + "px")
+        .style("top", (event.pageY + 15) + "px");
+    })
+    .on("mouseout", () => {
+    preview.style("opacity", 0);
+    });
+
+  simulation.on("tick", () => {
+
+    // Curved edges
+    link.attr("d", d => {
+      const dx = d.target.x - d.source.x;
+      const dy = d.target.y - d.source.y;
+      const dr = Math.sqrt(dx*dx + dy*dy) * 0.4;
+      return `
+        M ${d.source.x},${d.source.y}
+        A ${dr},${dr} 0 0,1 ${d.target.x},${d.target.y}
+      `;
+    });
+
+    node
+      .attr("cx", d => d.x)
+      .attr("cy", d => d.y);
+  });
+
+});
+
+function drag(simulation) {
+  return d3.drag()
+    .on("start", (event, d) => {
+      if (!event.active) simulation.alphaTarget(0.3).restart();
+      d.fx = d.x;
+      d.fy = d.y;
+    })
+    .on("drag", (event, d) => {
+      d.fx = event.x;
+      d.fy = event.y;
+    })
+    .on("end", (event, d) => {
+      if (!event.active) simulation.alphaTarget(0);
+      d.fx = null;
+      d.fy = null;
+    });
+}
+
+</script>
+</body>
+</html>
