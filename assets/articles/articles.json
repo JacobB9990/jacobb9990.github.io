@@ -1,12 +1,58 @@
 [
     {
+<<<<<<< Updated upstream
         "title": "Classic Centralities",
         "file": "/assets/articles/classic-centralities.html",
         "date": "2026-03-1"
+=======
+        "title": "Breaking TCP: When Network Protocols Fail",
+        "file": "/article.html?page=breaking-tcp",
+        "date": "2025-04-14"
+>>>>>>> Stashed changes
     },
     {
-        "title": "Exploring Dynamic Arrays",
-        "file": "/assets/articles/exploring-dynamic-arrays.html",
+        "title": "Dynamic Arrays: From Theory to Implementation",
+        "file": "/article.html?page=exploring-dynamic-arrays",
         "date": "2025-04-13"
+    },
+    {
+        "title": "PageRank: The Algorithm That Built Google",
+        "file": "/article.html?page=anatomy-of-web-search-engine",
+        "date": "2025-07-12"
+    },
+    {
+        "title": "HITS vs PageRank: Battle of the Ranking Algorithms",
+        "file": "/article.html?page=authoritative-sources-in-a-hyperlinked-environment",
+        "date": "2025-07-28"
+    },
+    {
+        "title": "Super-Spreaders: Identifying Influential Nodes",
+        "file": "/article.html?page=complex-influential-spreaders",
+        "date": "2025-09-20"
+    },
+    {
+        "title": "Stopping Epidemics: Optimal Sensor Placement in Networks",
+        "file": "/article.html?page=cost-effective-outbreak-detection",
+        "date": "2026-01-02"
+    },
+    {
+        "title": "Influence Maximization: Triggering Social Cascades",
+        "file": "/article.html?page=influential-nodes-in-diffusion-model",
+        "date": "2025-04-08"
+    },
+    {
+        "title": "The Greedy Approach to Network Influence",
+        "file": "/article.html?page=maximizing-spread-report",
+        "date": "2025-04-07"
+    },
+    {
+        "title": "The Three Pillars of Network Analysis: Centrality Measures",
+        "file": "/article.html?page=centrality-measures",
+        "date": "2025-06-22"
+    },
+    {
+        "title": "Sabidussi's Centrality Index: Foundations of Graph Theory",
+        "file": "/article.html?page=sabidussi-centrality",
+        "date": "2025-06-30"
     }
 ]
