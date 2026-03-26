@@ -1,14 +1,13 @@
 [
     {
-<<<<<<< Updated upstream
         "title": "Classic Centralities",
         "file": "/assets/articles/classic-centralities.html",
         "date": "2026-03-1"
-=======
+    },
+    {
         "title": "Breaking TCP: When Network Protocols Fail",
         "file": "/article.html?page=breaking-tcp",
         "date": "2025-04-14"
->>>>>>> Stashed changes
     },
     {
         "title": "Dynamic Arrays: From Theory to Implementation",
